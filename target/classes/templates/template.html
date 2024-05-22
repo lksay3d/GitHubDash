@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>GitHub Actions Dashboard</title>
+</head>
+<body>
+    <h1>GitHub Repositories</h1>
+    <ul>
+        <li th:each="repo : ${repositories}" th:text="${repo}"></li>
+    </ul>
+</body>
+</html>
