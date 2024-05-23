@@ -1,25 +1,33 @@
 package com.github.lksay3d.GHADash.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 @Service
 public class EmailService {
 
-    private final JavaMailSender emailSender;
-
-    @Autowired
-    public EmailService(JavaMailSender emailSender) {
-        this.emailSender = emailSender;
-    }
-
     public void sendSimpleMessage(String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        emailSender.send(message);
+        try {
+            String[] cmd = {
+                "python3",
+                "send_email.py",
+                to,
+                subject,
+                text
+            };
+            Process p = Runtime.getRuntime().exec(cmd);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            p.waitFor();
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
