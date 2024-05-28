@@ -20,7 +20,7 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String getDashboard(Model model) throws IOException {
-        model.addAttribute("repositories", gitHubService.listRepositories());
+        model.addAttribute("repositories", gitHubService.listRepositoriesWithActions());
         return "template";
     }
 }
