@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>GitHub Actions Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-    <h1>GitHub Repositories</h1>
-    <ul>
-        <li th:each="repo : ${repositories}" th:text="${repo}"></li>
-    </ul>
-</body>
-</html>
+    <div class="container">
+        <h1>GitHub Repositories Using GitHub Actions with Deployment Logs</h1>
+        <ul>
+            <li th:each="repo : ${repositories}" th:text="${repo}"></li>
+​⬤

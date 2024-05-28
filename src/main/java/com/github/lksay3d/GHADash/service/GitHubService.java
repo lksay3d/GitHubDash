@@ -49,8 +49,9 @@ public class GitHubService {
 
             if (workflows != null) {
                 for (Map<String, Object> workflow : workflows) {
-                    String runsUrl = workflow.get("url").toString().replace("/actions/workflows/", "/actions/runs/");
-                    ResponseEntity<Map> runsResponse = restTemplate.exchange(runsUrl, HttpMethod.GET, entity, Map.class);
+                    String workflowRunsUrl = String.format("https://api.github.com/repos/%s/actions/workflows/%s/runs",
+                            repository.getFullName(), workflow.get("id"));
+                    ResponseEntity<Map> runsResponse = restTemplate.exchange(workflowRunsUrl, HttpMethod.GET, entity, Map.class);
                     List<Map<String, Object>> runs = (List<Map<String, Object>>) runsResponse.getBody().get("workflow_runs");
 
                     if (runs != null) {
